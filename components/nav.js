@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import MainScreen from '../screens/MainScreen.js';
 import DetailScreen from '../screens/DetailScreen.js';
+import CalculateScreen from '../screens/CalculateScreen.js';
 
 function DetailsScreen(props) {
   return (
@@ -22,13 +23,7 @@ function HomeScreen({ navigation }) {
 
 function SettingsScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
-      />
-    </View>
+    <CalculateScreen navigation={navigation} />
   );
 }
 
@@ -48,7 +43,7 @@ const SettingsStack = createStackNavigator();
 function SettingsStackScreen() {
   return (
     <SettingsStack.Navigator>
-      <SettingsStack.Screen name="Settings" component={SettingsScreen} />
+      <SettingsStack.Screen name="Hesapla" component={SettingsScreen} />
       <SettingsStack.Screen name="Details" component={DetailsScreen} />
     </SettingsStack.Navigator>
   );
