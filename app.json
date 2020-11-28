@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "crypto-kur",
+    "name": "Crypto Coin Calculator",
     "slug": "crypto-kur",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,9 +21,11 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#00377B"
+      },
+	  "package": "onurgule.cryptokur",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

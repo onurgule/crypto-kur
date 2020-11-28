@@ -96,11 +96,11 @@ export default class CalculateString extends Component {
           }
           {
               this.state.kar != 0 && this.state.kar != 1 && !isNaN(this.state.kar) &&
-          <Card>
+          <Card style={{marginTop:20}}>
             <CardItem>
               <Body>
                 <Text style={{textAlign:'center'}}>
-                    {this.state.chosenDate.getDay() +"/" + this.state.chosenDate.getMonth() + "/" + this.state.chosenDate.getFullYear()} tarihinde {this.state.kactl}TL'lik {this.state.coin} alsaydınız {"\n"}
+                    {this.state.chosenDate.getDate() +"/" + (parseInt(this.state.chosenDate.getMonth())+1) + "/" + this.state.chosenDate.getFullYear()} tarihinde {this.state.kactl}TL'lik {this.state.coin} alsaydınız {"\n"}
                    { this.state.kar> 0 ? this.state.kar : this.state.kar*(-1)} TL {this.state.kar > 0 ? "kar" : "zarar"} edecektiniz.
                 </Text>
               </Body>
