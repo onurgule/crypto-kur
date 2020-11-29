@@ -8,7 +8,8 @@ export default class CalculateString extends Component {
       chosenDate: new Date(),
       coins:[],
       kactl:1,
-      kar:0
+      kar:0,
+      error:null
     };
     this.setDate = this.setDate.bind(this);
   }
@@ -21,6 +22,12 @@ export default class CalculateString extends Component {
   setDate(newDate) {
     this.setState({ chosenDate: newDate, kar:0 });
   }
+  kacTL(val){
+    if(isNaN(val)){
+      this.setState({kar:0, error:'Yalnızca sayı giriniz.', kactl:"null"})
+    }
+    else this.setState({kactl:val, kar:0, error:null})
+  }
   onValueChange2(value) {
     this.setState({
       coin: value,
@@ -28,11 +35,18 @@ export default class CalculateString extends Component {
     });
   }
   async calculate(){
-      var tarih = this.state.chosenDate.getDay()+"-"+this.state.chosenDate.getMonth()+"-"+this.state.chosenDate.getFullYear();
+    console.log(this.state.kactl, isNaN(this.state.kactl))
+      if(!isNaN(this.state.kactl)){
+      var tarih = this.state.chosenDate.getDate()+"-"+(parseInt(this.state.chosenDate.getMonth())+1)+"-"+this.state.chosenDate.getFullYear();
+      console.log("http://finansal.onurgule.com.tr/calculate?coin="+this.state.coin+"&tarih="+tarih+"&kactl="+this.state.kactl);
       fetch("http://finansal.onurgule.com.tr/calculate?coin="+this.state.coin+"&tarih="+tarih+"&kactl="+this.state.kactl)
       .then(txt => txt.text()).then((gelen) => {
-          this.setState({kar : parseInt(gelen)})
+          this.setState({kar : parseInt(gelen), error:null})
       } );
+    }
+    else{
+      this.setState({kar:0, error:'Yalnızca sayı giriniz..'})
+    }
   }
   render() {
     return (
@@ -77,7 +91,7 @@ export default class CalculateString extends Component {
             <Label style={{marginTop:20}}>Kaç TL'lik alım gerçekleştireceksiniz?</Label>
             <Item>
             <Icon active name='cash' />
-            <Input onChangeText={text => this.setState({kactl:text, kar:0})} placeholder="TL Cinsinden Giriniz..."/>
+            <Input keyboardType="phone-pad" onChangeText={(val) => this.kacTL(val)} placeholder="TL Cinsinden Giriniz..."/>
           </Item>
           <Button onPress={ () => this.calculate()} style={{marginTop:25, alignSelf:'center'}} iconLeft>
             <Icon name='calculator' />
@@ -85,8 +99,18 @@ export default class CalculateString extends Component {
           </Button>
           </Form>
           {
+            isNaN(this.state.kactl)&&
+            <Card style={{marginTop:20}}>
+            <CardItem>
+              <Body>
+              <Text style={{textAlign:'center'}}>{this.state.error}</Text>
+              </Body>
+            </CardItem>
+          </Card>
+          }
+          {
               isNaN(this.state.kar) &&
-              <Card>
+              <Card style={{marginTop:20}}>
             <CardItem>
               <Body>
               <Text style={{textAlign:'center'}}>Bu tarihte alamazdınız.</Text>
@@ -101,7 +125,7 @@ export default class CalculateString extends Component {
               <Body>
                 <Text style={{textAlign:'center'}}>
                     {this.state.chosenDate.getDate() +"/" + (parseInt(this.state.chosenDate.getMonth())+1) + "/" + this.state.chosenDate.getFullYear()} tarihinde {this.state.kactl}TL'lik {this.state.coin} alsaydınız {"\n"}
-                   { this.state.kar> 0 ? this.state.kar : this.state.kar*(-1)} TL {this.state.kar > 0 ? "kar" : "zarar"} edecektiniz.
+                   { this.state.kar> 0 ? this.state.kar : this.state.kar*(-1)} TL <Text style={{color:this.state.kar > 0 ? "green" : "red"}}>{this.state.kar > 0 ? "kar" : "zarar"}</Text> edecektiniz.
                 </Text>
               </Body>
             </CardItem>
