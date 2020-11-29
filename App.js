@@ -21,7 +21,7 @@ export default class App extends React.Component {
     try {
       await AsyncStorage.setItem('onboarding', "false")
     } catch (e) {
-      console.error("onboarding save error")
+      //console.error("onboarding save error")
       // saving error
     }
     this.setState({onboarding:false});

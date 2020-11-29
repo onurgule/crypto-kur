@@ -43,6 +43,7 @@ export default class DetailScreen extends Component {
                 valc.push(olay.prices[k][1]);
              }
             this.setState({chartTime: timec, chartValue: valc});
+            fetch("https://onurgule.com.tr/finansal/addLookup.php?cid="+this.props.coin["id"]);
         });
       }
   render() {
@@ -117,7 +118,7 @@ export default class DetailScreen extends Component {
                     } else {
                       return Linking.openURL("https://wikipedia.org/wiki/"+this.props.coin["name"]);
                     }
-                  }).catch(err => console.error('An error occurred', err))
+                  }).catch(err => console.log('An error occurred', err))
                   }
               />
             </Section>
